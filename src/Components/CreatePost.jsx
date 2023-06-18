@@ -1,30 +1,45 @@
-import { useState } from "react";
-import PostList from "./PostList";
+import { useState,useRef } from "react";
 
-const CreatePost=()=>{
-const[content,setContent] =  useState("")
-const[image,setImage] =  useState(null)
-const handleSubmit =(event)=>{
-    event.preventDefault();
-    console.log(content);
-    console.log("submited");
-    <PostList/>
-}
+
+
+
+
+function CreatePost({post,setPost}){
+    const [image,setImage] =  useState(null)
+    const [content,setContent] =  useState("")
+  const imageRef =  useRef();
+  const myContent  =  useRef();
+  const contentRef  = useRef();
+
+ const handleSubmit = (e)=>{
+    e.preventDefault()
+    const newPost  =  {content,image};
+    setPost([newPost,...post])
+    imageRef.current.value = ""
+   setContent("")
+   setImage(null)
+    // console.log([newPost, ...post])
+    // console.log(post)
+   myContent.current.focus()
+} 
+
     return(
         <>
-        <form onSubmit={handleSubmit} >
-            <input
-            onChange={(event)=>{
-                setContent(event.target.value)
-            }} type="text" placeholder="Post Name"/>
-            <input type="submit"/>
-            <input onChange={(event)=>{
+          <form onSubmit={handleSubmit}>
+          <input type="text" ref={myContent} value={content}  onChange={(e)=>{
+            setContent(e.target.value)
+          }} />     
+            <input type="file" ref={imageRef}  onChange={(event)=>{
                 setImage(event.target.files[0])
-            }} type="file"placeholder="Upload File"/>
+            }}  /> 
+            <input type="submit"/>
+            {/* <img src="" alt="" className="images" /> */}
+
+
         </form>
-        <p>{content}</p>
-       {image && <img style={{width:"100px",height:"100px"}} src={URL.createObjectURL(image)}/>}
         </>
+      
+
     )
 }
 export default CreatePost;

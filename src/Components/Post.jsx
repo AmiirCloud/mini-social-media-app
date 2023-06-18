@@ -1,7 +1,10 @@
-const Post = ()=>{
+const Post = ({content,image})=>{
     return(
         <>
-        <h1>This is the post </h1>
+
+        <p>{content}</p>
+        {image&&<img src={URL.createObjectURL(image)} alt={image}/>} 
+        
         </>
     )
 }

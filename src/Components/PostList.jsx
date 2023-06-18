@@ -1,9 +1,12 @@
 import React from 'react'
-const PostList = ()=>{
+import Post from './Post';
+const PostList = ({posts})=>{
     return(
-        <>
-        <h1>this is hte psot list </h1>
-        </>
+       
+         posts.map(post=> <Post content = {post.content} image = {post.image}/>
+   
+   )
+         
     )
 }
 export default PostList;
